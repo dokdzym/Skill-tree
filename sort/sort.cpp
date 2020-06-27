@@ -7,6 +7,7 @@
 #include<algorithm>
 using namespace std;
 
+//https://www.cnblogs.com/ayqy/p/4052646.html å †æ’åº
 void Swap(vector<int>&a, int i, int j)
 {
 	int temp = a[i];
@@ -14,7 +15,7 @@ void Swap(vector<int>&a, int i, int j)
 	a[j] = temp;
 }
 
-int partition(vector<int>& nums, int left, int right) {//¿ìËÙÅÅĞòµÄ·Ö¿é
+int partition(vector<int>& nums, int left, int right) {//å¿«é€Ÿæ’åºçš„åˆ†å—
 	if (left > right) return -1;
 	int key = nums[left];
 	int i = left;
@@ -33,7 +34,7 @@ int partition(vector<int>& nums, int left, int right) {//¿ìËÙÅÅĞòµÄ·Ö¿é
 	return j;
 }
 
-void quicksort(vector<int>& nums, int left, int right) {//¿ìËÙÅÅĞò
+void quicksort(vector<int>& nums, int left, int right) {//å¿«é€Ÿæ’åº
 	if (left > right) return;
 	srand(unsigned(time(NULL)));
 	int randomIndex = rand() % (right - left + 1) + left;
@@ -43,7 +44,7 @@ void quicksort(vector<int>& nums, int left, int right) {//¿ìËÙÅÅĞò
 	quicksort(nums, pivot + 1, right);
 }
 
-void bubbleSort(vector<int>& nums) {//Ã°ÅİÅÅĞò£¬ÏÈÅÅĞòºó·½
+void bubbleSort(vector<int>& nums) {//å†’æ³¡æ’åºï¼Œå…ˆæ’åºåæ–¹
 	int len = nums.size();
 	bool flag = false;
 	for (int i = 0; i < nums.size() - 1; ++i)
@@ -60,13 +61,13 @@ void bubbleSort(vector<int>& nums) {//Ã°ÅİÅÅĞò£¬ÏÈÅÅĞòºó·½
 	}
 }
 
-void bubbleSort1(vector<int>& a) {//Ã°ÅİÅÅĞò£¬ÏÈÅÅĞòÇ°·½
+void bubbleSort1(vector<int>& a) {//å†’æ³¡æ’åºï¼Œå…ˆæ’åºå‰æ–¹
 	int length = a.size();
-	bool flag;//Ã»ÓĞ·¢Éú¹ı½»»»
+	bool flag;//æ²¡æœ‰å‘ç”Ÿè¿‡äº¤æ¢
 	for (int i = 0; i < length - 1; i++)
 	{
 		flag = false;
-		for (int j = length - 2; j >= i; --j)//×¢ÒâÕâÀïµÄjÖµ
+		for (int j = length - 2; j >= i; --j)//æ³¨æ„è¿™é‡Œçš„jå€¼
 		{
 			if (a[j] > a[j + 1])
 			{
@@ -75,23 +76,23 @@ void bubbleSort1(vector<int>& a) {//Ã°ÅİÅÅĞò£¬ÏÈÅÅĞòÇ°·½
 			}
 		}
 		if (flag == false)
-			break;//½»»»Íê±Ï
+			break;//äº¤æ¢å®Œæ¯•
 	}
 }
-void shellSort(vector<int>& nums) {//Ï£¶ûÅÅĞò-²åÈëÅÅĞòµÄ±ä»¯ĞÎÊ½
+void shellSort(vector<int>& nums) {//å¸Œå°”æ’åº-æ’å…¥æ’åºçš„å˜åŒ–å½¢å¼
 	int len = nums.size();
 	int i, j, key;
-	for (int inc = len / 2; inc > 0; inc /= 2) {//×¢ÒâÕâÀïÊÇinc > 0  inc±íÊ¾ÔöÁ¿increment
+	for (int inc = len / 2; inc > 0; inc /= 2) {//æ³¨æ„è¿™é‡Œæ˜¯inc > 0  incè¡¨ç¤ºå¢é‡increment
 		for (i = inc; i < len; ++i) {
 			key = nums[i];
-			for (j = i - inc; j >= 0 && nums[j] > key; j -= inc) {//ËùÓĞÓëjÏà¹ØµÄ¼Ó¼õµÄÁíÒ»Ôª²Ù×÷Êı¶¼ÊÇinc
+			for (j = i - inc; j >= 0 && nums[j] > key; j -= inc) {//æ‰€æœ‰ä¸jç›¸å…³çš„åŠ å‡çš„å¦ä¸€å…ƒæ“ä½œæ•°éƒ½æ˜¯inc
 				nums[j + inc] = nums[j];
 			}
 			nums[j + inc] = key;
 		}
 	}
 }
-void insertSort(vector<int>& nums) {//²åÈëÅÅĞò
+void insertSort(vector<int>& nums) {//æ’å…¥æ’åº
 	int len = nums.size();
 	int i, j, key;
 	for (i = 1; i < len; ++i) {
@@ -103,7 +104,7 @@ void insertSort(vector<int>& nums) {//²åÈëÅÅĞò
 	}
 }
 
-void mergeOne(vector<int>& nums, int start, int mid, int end) {//¹é²¢ÅÅĞòµÄºÏ²¢
+void mergeOne(vector<int>& nums, int start, int mid, int end) {//å½’å¹¶æ’åºçš„åˆå¹¶
 	if (start >= end) {
 		return;
 	}
@@ -123,7 +124,7 @@ void mergeOne(vector<int>& nums, int start, int mid, int end) {//¹é²¢ÅÅĞòµÄºÏ²¢
 		nums[start + i] = tmp[i];
 	}
 }
-void mergeSort(vector<int>& nums, int start, int end) {//¹é²¢ÅÅĞò
+void mergeSort(vector<int>& nums, int start, int end) {//å½’å¹¶æ’åº
 	if (start >= end) {
 		return;
 	}
