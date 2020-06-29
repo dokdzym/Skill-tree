@@ -8,6 +8,34 @@
 using namespace std;
 
 //https://www.cnblogs.com/ayqy/p/4052646.html 堆排序
+
+void max_heapify(int arr[], int start, int end) {//基于堆排序的选择可以看https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+	int dad = start;
+	int son = 2 * dad + 1;
+	while (son <= end) {
+		if (son + 1 <= end && arr[son + 1] > arr[son])
+			++son;
+		if (arr[dad] > arr[son])
+			return;
+		else {
+			swap(arr[dad], arr[son]);
+			dad = son;
+			son = 2 * dad + 1;
+		}
+	}
+}
+
+void heapSort(int arr[], int len) {
+	for (int lastDad = len / 2 - 1; lastDad >= 0; --lastDad) {
+		max_heapify(arr, lastDad, len - 1);
+	}
+	for (int i = len - 1; i > 0; --i) {
+		swap(arr[0], arr[i]);
+		max_heapify(arr, 0, i - 1);
+	}
+}
+
+
 void Swap(vector<int>&a, int i, int j)
 {
 	int temp = a[i];
@@ -34,7 +62,7 @@ int partition(vector<int>& nums, int left, int right) {//快速排序的分块
 	return j;
 }
 
-void quicksort(vector<int>& nums, int left, int right) {//快速排序
+void quicksort(vector<int>& nums, int left, int right) {//快速排序 //快速选择可以看https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
 	if (left > right) return;
 	srand(unsigned(time(NULL)));
 	int randomIndex = rand() % (right - left + 1) + left;
@@ -144,11 +172,13 @@ void selectSort(vector<int>& nums) {
 }
 int main() {
 	vector<int> nums{ 1,6,5,4,3,2,10,15,2 };
+	int len = nums.size();
 	//bubbleSort(nums);
-	//quicksort(nums, 0, nums.size() - 1);
+	//quicksort(nums, 0, len - 1);
 	//shellSort(nums);
 	//insertSort(nums);
-	//mergeSort(nums, 0, nums.size() - 1);
+	//mergeSort(nums, 0, len - 1);
+	//heapSort(nums, len);
 	selectSort(nums);
 	for (auto& i : nums) {
 		cout << i << endl;
