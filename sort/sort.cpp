@@ -164,12 +164,19 @@ void mergeSort(vector<int>& nums, int start, int end) {//归并排序
 
 void selectSort(vector<int>& nums) {
 	int len = nums.size();
-	for(int i = 0; i < len - 1; ++ i)
+	int i, j, index, temp;
+	for (int i = 0; i < len; ++i) {
+		index = i;
 		for (int j = i + 1; j < len; ++j) {
-			if (nums[i] > nums[j])
-				Swap(nums, i, j);
+			if (nums[index] > nums[j])
+				index = j;
 		}
+		temp = nums[index];
+		nums[index] = nums[i];
+		nums[i] = temp;
+	}
 }
+
 int main() {
 	vector<int> nums{ 1,6,5,4,3,2,10,15,2 };
 	int len = nums.size();
