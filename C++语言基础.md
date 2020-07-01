@@ -221,6 +221,43 @@ int (*p)(int)
 
 https://blog.csdn.net/qq_29344757/article/details/75575217 懒汉、饿汉模式实现
 
+13. 为什么静态成员不能在类内初始化？ 
+
+- 静态成员属于整个类，而不属于某个对象，如果在类内初始化，会导致每个对象都包含该静态成员，这是矛盾的
+
+```
+class A 
+{ 
+private: 
+static int count ; // 类内声明 
+};
+ 
+// 类外定义并初始化，不必再加static关键字
+int A::count = 0 ;
+```
+- static const int可以在类里面初始化
+
+```
+//这样不行 
+class A { 
+private: 
+    static int count = 0; // 静态成员不能在类内初始化 
+};
+ 
+//这样也不行 
+class A { 
+private: 
+    const int count = 0; // 常量成员也不能在类内初始化 
+};
+ 
+//但是这样可以 
+class A { 
+private: 
+    static const int count = 0; // 静态整型常量成员可以在类内初始化，但是 static const float count就不行了 
+};
+```
+
+
 ---
 
 ### <span id = "oop">面向对象基础</span>
