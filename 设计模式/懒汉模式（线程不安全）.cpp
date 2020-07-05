@@ -4,25 +4,34 @@ using namespace std;
 
 class singleton {
 private:
-	singleton(){}
-	static singleton* p;
+	singleton() {
+		test();
+	}
+	static singleton* ptr;
 public:
 	static singleton* getInstance();
+	static mutex mtx;
+	void test(); { cout << "test" << endl; }
 	int data;
 };
 
-singleton* singleton::p = nullptr;
-singleton* singleton::getInstance() {
-	if (nullptr == p)
-		p = new singleton();
-	return p;
+void singleton::test() 
+{ cout << "test" << endl; }
+singleton* singleton::ptr = new singleton();
+//mutex mtx;
+singleton* singleton::getInstance(){
+	mtx.lock();
+	return ptr;
 }
 
 int main() {
-	singleton* s = getInstance(); 
-	s.data = 10;
-	cout << s->data << endl;
-	singleton* s1 = new singleton();
-	s1.data = 13;
-	cout << s->data << endl;
+	cout << "test";
+	//singleton::test();
+	singleton* p = singleton::getInstance();
+	p->data = 10;
+	p->test();
+	cout << "p -> data = " << p->data << endl;
+	singleton* p1 = singleton::getInstance();
+	p1->data = 15;
+	cout << "p -> data = " << p->data << endl;
 }
