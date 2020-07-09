@@ -7,7 +7,6 @@
 # 内容
 
 ### <span id = "base">编程基础</span>
-### <span id = "oop">面向对象基础</span>
 
 **1、零值比较**
 
