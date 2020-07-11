@@ -265,6 +265,9 @@ private:
 - 拉链法
 - 再哈希法
 - 建立公共溢出区
+
+15. 闭包
+- https://blog.csdn.net/tennysonsky/article/details/77440152
 ---
 
 ### <span id = "oop">面向对象基础</span>
