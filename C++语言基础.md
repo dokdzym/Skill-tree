@@ -268,6 +268,60 @@ private:
 
 15. 闭包
 - https://blog.csdn.net/tennysonsky/article/details/77440152
+
+16. 右值引用，移动语义与完美转发
+- 右值与左值的区分
+  - 是否有名称
+  - 在赋值表达式的左侧还是右侧
+  - 是否可以用&引用
+- 右值引用形如
+```
+int && a = 10;
+a = 100;
+cout << a << endl;
+//输出100
+```
+- 完美转发指的是在模板函数中传递一个模板参数时，该参数是左值还是右值可以被该函数感知
+  - 使用非 const 引用作为函数模板参数时，只能接收左值，无法接收右值；而 const 左值引用既可以接收左值，也可以接收右值，但考虑到其 const 属性，除非被调用函数的参数也是 const 属性，否则将无法直接传递。可以用函数模板重载的方式实现完美转发：
+  ```
+  #include <iostream>
+  using namespace std;
+
+  //重载被调用函数，查看完美转发的效果
+  void otherdef(int & t) {
+      cout << "lvalue\n";
+  }
+  void otherdef(const int & t) {
+      cout << "rvalue\n";
+  }
+
+  //重载函数模板，分别接收左值和右值
+  //接收右值参数
+  template <typename T>
+  void function(const T& t) {
+      otherdef(t);
+  }
+  //接收左值参数
+  template <typename T>
+  void function(T& t) {
+      otherdef(t);
+  }
+
+  int main()
+  {
+      function(5);//5 是右值
+      int  x = 1;
+      function(x);//x 是左值
+      return 0;
+  }
+  //执行结果为:
+  //rvalue
+  //lvalue
+  ```
+  - 在C++11之前，总是按左值处理。但 C++11 标准为 C++ 引入了右值引用和移动语义，因此很多场景中是否实现完美转发，直接决定了该参数的传递过程使用的是拷贝语义（调用拷贝构造函数）还是移动语义（调用移动构造函数）。
+  - 无论传入的形参是左值还是右值，对于函数模板内部来说，形参既有名称又能寻址，因此它都是左值。那么如何才能将函数模板接收到的形参连同其左、右值属性，一起传递给被调用的函数呢？C++11 标准的开发者已经帮我们想好的解决方案，该新标准还引入了一个模板函数 forword<T>()，我们只需要调用该函数，就可以很方便地解决此问题。
+  - > http://c.biancheng.net/view/7868.html
+  - > https://blog.csdn.net/weixin_33728708/article/details/86261612
 ---
 
 ### <span id = "oop">面向对象基础</span>
